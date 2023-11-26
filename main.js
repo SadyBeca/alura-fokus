@@ -5,6 +5,18 @@ const descansoLongoBt = document.querySelector('.app__card-button--longo');
 const imagemHeader = document.querySelector('.app__image');
 const tituloCabecalho = document.querySelector('.app__title');
 const botoesDescanso = document.querySelectorAll('.app__card-button');
+const musicaFocoInput = document.querySelector('#alternar-musica');
+const musicaFoco = new Audio('/sons/luna-rise-part-one.mp3');
+musicaFoco.loop = true;
+
+musicaFocoInput.addEventListener('change', () => {
+    if (musicaFoco.paused){
+        musicaFoco.play();
+    }
+    else {
+        musicaFoco.pause();
+    }
+})
 
 focoBt.addEventListener('click', () => {
     mudaDescanso('foco');
