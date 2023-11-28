@@ -14,12 +14,12 @@ let tempoDecorridoContador = 1500;
 let intervaloId = null; 
 
 const musicaFocoInput = document.querySelector('#alternar-musica');
-const musicaFoco = new Audio('/sons/luna-rise-part-one.mp3');
+const musicaFoco = new Audio('sons/luna-rise-part-one.mp3');
 musicaFoco.loop = true;
 
-const musicaPlay = new Audio('/sons/play.wav');
-const musicaPause = new Audio('/sons/pause.mp3');
-const musicaAlerta = new Audio('/sons/beep.mp3');
+const musicaPlay = new Audio('sons/play.wav');
+const musicaPause = new Audio('sons/pause.mp3');
+const musicaAlerta = new Audio('sons/beep.mp3');
 
 musicaFocoInput.addEventListener('change', () => {
     if (musicaFoco.paused){
@@ -50,7 +50,7 @@ descansoLongoBt.addEventListener('click', () => {
 
 function mudaDescanso(contexto){
     html.setAttribute('data-contexto', contexto);
-    imagemHeader.setAttribute('src', `/imagens/${contexto}.png`);
+    imagemHeader.setAttribute('src', `imagens/${contexto}.png`);
     botoesDescanso.forEach(function (botaodoArray){
         botaodoArray.classList.remove('active');
     })
@@ -106,13 +106,13 @@ function iniciarOuPausarContador() {
     }
     intervaloId = setInterval(decrementaContador, 1000);
     startPauseBt.textContent = "Pausar";
-    imagemBtStartPause.setAttribute('src','/imagens/pause.png');
+    imagemBtStartPause.setAttribute('src','imagens/pause.png');
 }
 
 function reiniciarContador(){
     clearInterval(intervaloId);
     startPauseBt.textContent = "Começar";
-    imagemBtStartPause.setAttribute('src','/imagens/play_arrow.png')
+    imagemBtStartPause.setAttribute('src','imagens/play_arrow.png')
     intervaloId = null;
 }
 
