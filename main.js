@@ -5,7 +5,8 @@ const descansoLongoBt = document.querySelector('.app__card-button--longo');
 const imagemHeader = document.querySelector('.app__image');
 const tituloCabecalho = document.querySelector('.app__title');
 const botoesDescanso = document.querySelectorAll('.app__card-button');
-const botaoStartPause = document.querySelector('#start-pause');
+const startPause = document.querySelector('#start-pause');
+const startPauseBt = document.querySelector('#start-pause span')
 
 let tempoDecorridoContador = 5;
 let intervaloId = null; 
@@ -75,22 +76,20 @@ function mudaDescanso(contexto){
 
 const decrementaContador = () => {
     if (tempoDecorridoContador <= 0) {
-        reiniciarContador();
-        musicaAlerta.play()
+        //musicaAlerta.play()
         alert('Tempo finalizado!');
+        reiniciarContador();
         return       
     }
     tempoDecorridoContador -= 1;
     console.log(tempoDecorridoContador);    
 }
 
-botaoStartPause.addEventListener('click', () => {
+startPause.addEventListener('click', () => {
     if (intervaloId){
         musicaPause.play();
     }
-    else {
-        musicaPlay.play();
-    }
+    musicaPlay.play();
     iniciarOuPausarContador();
 });
 
@@ -100,16 +99,12 @@ function iniciarOuPausarContador() {
         return
     }
     intervaloId = setInterval(decrementaContador, 1000);
+    startPauseBt.textContent = "Pausar"
 }
 
 function reiniciarContador(){
     clearInterval(intervaloId);
+    startPauseBt.textContent = "Começar"
     intervaloId = null;
 }
 
-function tocaAlerta(){
-    if (decrementaContador === 0){
-        musicaAlerta.play()
-        return
-    }
-}
