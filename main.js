@@ -6,9 +6,11 @@ const imagemHeader = document.querySelector('.app__image');
 const tituloCabecalho = document.querySelector('.app__title');
 const botoesDescanso = document.querySelectorAll('.app__card-button');
 const startPause = document.querySelector('#start-pause');
-const startPauseBt = document.querySelector('#start-pause span')
+const startPauseBt = document.querySelector('#start-pause span');
+const imagemBtStartPause = document.querySelector('.app__card-primary-butto-icon');
+const tempoNaTela = document.querySelector('#timer');
 
-let tempoDecorridoContador = 5;
+let tempoDecorridoContador = 1500;
 let intervaloId = null; 
 
 const musicaFocoInput = document.querySelector('#alternar-musica');
@@ -29,16 +31,19 @@ musicaFocoInput.addEventListener('change', () => {
 })
 
 focoBt.addEventListener('click', () => {
+    tempoDecorridoContador = 1500;
     mudaDescanso('foco');
     focoBt.classList.add('active');
 });
 
 descansoCurtoBt.addEventListener('click', () => {
+    tempoDecorridoContador = 300;
     mudaDescanso('descanso-curto');
     descansoCurtoBt.classList.add('active');
 });
 
 descansoLongoBt.addEventListener('click', () => {
+    tempoDecorridoContador = 900;
     mudaDescanso('descanso-longo');
     descansoLongoBt.classList.add('active');
 });
@@ -49,6 +54,7 @@ function mudaDescanso(contexto){
     botoesDescanso.forEach(function (botaodoArray){
         botaodoArray.classList.remove('active');
     })
+    mostrarTempo();
     switch (contexto){
         case "foco":
             tituloCabecalho.innerHTML = `
@@ -76,13 +82,13 @@ function mudaDescanso(contexto){
 
 const decrementaContador = () => {
     if (tempoDecorridoContador <= 0) {
-        //musicaAlerta.play()
+        musicaAlerta.play()
         alert('Tempo finalizado!');
         reiniciarContador();
-        return       
+        return;       
     }
     tempoDecorridoContador -= 1;
-    console.log(tempoDecorridoContador);    
+    mostrarTempo();    
 }
 
 startPause.addEventListener('click', () => {
@@ -96,15 +102,25 @@ startPause.addEventListener('click', () => {
 function iniciarOuPausarContador() {
     if (intervaloId){
         reiniciarContador();
-        return
+        return;
     }
     intervaloId = setInterval(decrementaContador, 1000);
-    startPauseBt.textContent = "Pausar"
+    startPauseBt.textContent = "Pausar";
+    imagemBtStartPause.setAttribute('src','/imagens/pause.png');
 }
 
 function reiniciarContador(){
     clearInterval(intervaloId);
-    startPauseBt.textContent = "Começar"
+    startPauseBt.textContent = "Começar";
+    imagemBtStartPause.setAttribute('src','/imagens/play_arrow.png')
     intervaloId = null;
 }
+
+function mostrarTempo(){
+    const tempoEmMilissegundos = new Date(tempoDecorridoContador * 1000);
+    const tempoFormatado = tempoEmMilissegundos.toLocaleTimeString('pt-Br', {minute: '2-digit', second: '2-digit'});
+    tempoNaTela.innerHTML = `${tempoFormatado}`;
+}
+
+mostrarTempo();
 
